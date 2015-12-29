@@ -37,9 +37,7 @@ irrecv.enableIRIn();
 
 
 
-pinMode(E1,OUTPUT);
 pinMode(M1,OUTPUT);
-pinMode(E2,OUTPUT);
 pinMode(M2,OUTPUT);
 
 }
@@ -52,34 +50,37 @@ irrecv.resume();
 
 if (results.value == 0x9CB47){ // Tasto freccia AVANTI decodificata del mio telecomdando Samsung, muove il Robot in avanti
 
-digitalWrite(E1,130); // Imposto la velocità dei due motori sx a 130 
+digitalWrite(E1,150); // Imposto la velocità dei due motori sx a 150 
 digitalWrite(M1,LOW); // Setto a LOW Direction Control (Controllo Direzione)Motore di Sinistra
-digitalWrite(E2,130); // Imposto la velocità dei due motori dx a 130 
+digitalWrite(E2,120); // Imposto la velocità dei due motori dx a 120 
 digitalWrite(M2,HIGH); // Setto a HIGH Direction Control (Controllo Direzione)Motore di Destra affinchè le ruote girano nello stesso senso delle ruote sx
 
 
 
 } else if(results.value == 0xDCB47){ // Tasto freccia SINISTRA decodificata del mio telecomdando Samsung, permette al Robot di girare a sinistra
 
-digitalWrite(M1,LOW);
-digitalWrite(E1,LOW);
-digitalWrite(M2,130);
+digitalWrite(M1,HIGH);
+digitalWrite(E1,130);
+digitalWrite(M2,HIGH);
 digitalWrite(E2,130);
+
 
 
 } else if(results.value == 0x3CB47){ // Tasto freccia DESTRA decodificato del mio telecomdando Samsung, permette al Robot di girare a destra
 
 digitalWrite(M2,LOW);
-digitalWrite(E2,LOW);
+digitalWrite(E2,130);
 digitalWrite(M1,LOW);
 digitalWrite(E1,130);
+
 
 } else if(results.value == 0x5CB47){ // Tasto freccia RETROMARCIA decodificato del mio telecomdando Samsung, permette al Robot di effettuare retromarcia
 
 digitalWrite(E1,130);
-digitalWrite(M1,130);
+digitalWrite(M1,HIGH);
 digitalWrite(E2,130);
 digitalWrite(M2,LOW);
+
 
 } else if(results.value == 0xBCB47){ // Tasto centrale STOP decodificato del mio telecomdando Samsung, permette al Robot di fermare la marcia
 
@@ -87,6 +88,9 @@ digitalWrite(E1,LOW);
 digitalWrite(E2,LOW);
 digitalWrite(M1,LOW);
 digitalWrite(M2,LOW);
+
+
+irrecv.resume();
 
 }
 
